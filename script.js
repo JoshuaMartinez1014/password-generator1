@@ -4,109 +4,30 @@ let passwordLength = 0;
 let finalPassword = [];
 let selection = [];
 
-let lowerCaseAlphabet = [
-  "a",
-  "b",
-  "c",
-  "d",
-  "e",
-  "f",
-  "g",
-  "h",
-  "i",
-  "j",
-  "k",
-  "l",
-  "m",
-  "n",
-  "o",
-  "p",
-  "q",
-  "r",
-  "s",
-  "t",
-  "u",
-  "v",
-  "w",
-  "x",
-  "y",
-  "z",
+// prettier-ignore
+let lowerCaseAlphabet = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z",
 ];
-let upperCaseAlphabet = [
-  "A",
-  "B",
-  "C",
-  "D",
-  "E",
-  "F",
-  "G",
-  "H",
-  "I",
-  "J",
-  "K",
-  "L",
-  "M",
-  "N",
-  "O",
-  "P",
-  "Q",
-  "R",
-  "S",
-  "T",
-  "U",
-  "V",
-  "W",
-  "X",
-  "Y",
-  "Z",
+// prettier-ignore
+let upperCaseAlphabet = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z",
 ];
-let specialCharacters = [
-  "!",
-  "$",
-  "%",
-  "&",
-  "(",
-  ")",
-  "*",
-  "+",
-  ",",
-  "-",
-  ".",
-  "/",
-  ":",
-  ";",
-  "<",
-  "=",
-  ">",
-  "?",
-  "@",
-  "[",
-  "]",
-  "^",
-  "_",
-  "`",
-  "{",
-  "|",
-  "}",
-  "~",
-  "\\",
-  "'",
-  '"',
+// prettier-ignore
+let specialCharacters = ["!","$","%","&","(",")","*", "+",",","-",".","/",":",";","<","=",">","?","@","[","]","^","_","`","{","|","}","~","\\","'",'"',
 ];
 let numericalcharacters = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
 
+/* Create password criteria */
 let askPrompt = function () {
+  //prettier-ignore
   passwordLength = prompt("Type length of password desired");
+  while (isNaN(passwordLength) || passwordLength == 0 || !passwordLength) {
+    alert("Please input a valid number");
+    passwordLength = prompt("Type length of password desired");
+  }
 
   let lower = confirm("click 'OK' for lowercase character");
   let upper = confirm("click 'OK' for upper character");
   let number = confirm("click 'OK' for number character");
   let special = confirm("click 'OK' for special character");
-
-  while (passwordLength === 0 || passwordLength === false) {
-    alert("Please input a valid number");
-    passwordLength = prompt("Type length of password desired");
-  }
 
   while (!lower && !upper && !number && !special) {
     alert("Please click 'OK' on at least one prompt!");
@@ -116,6 +37,7 @@ let askPrompt = function () {
     special = confirm("click ok for special character");
   }
 
+  /* create password criteria array */
   if (lower) {
     console.log("lower");
     selection = selection.concat(lowerCaseAlphabet);
@@ -135,6 +57,7 @@ let askPrompt = function () {
   console.log("selection:" + selection);
 };
 
+/* create password */
 function generatePassword() {
   while (finalPassword.length < passwordLength) {
     i = Math.floor(Math.random() * selection.length);
@@ -142,7 +65,10 @@ function generatePassword() {
     finalPassword += char;
   }
 }
+
+/* run previous functins, write password on page */
 function writePassword() {
+  askPrompt();
   finalPassword = [];
   generatePassword();
   console.log(finalPassword);
@@ -153,6 +79,3 @@ function writePassword() {
 }
 
 generateBtn.addEventListener("click", writePassword);
-
-askPrompt();
-generatePassword();
