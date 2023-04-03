@@ -18,8 +18,14 @@ let numericalcharacters = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
 /* Create password criteria */
 let askPrompt = function () {
   //prettier-ignore
-  passwordLength = prompt("Type length of password desired");
-  while (isNaN(passwordLength) || passwordLength == 0 || !passwordLength) {
+  selection = [];
+  passwordLength = prompt("Type length of password desired (between 8 & 128)");
+  while (
+    isNaN(passwordLength) ||
+    passwordLength < 8 ||
+    passwordLength > 128 ||
+    !passwordLength
+  ) {
     alert("Please input a valid number");
     passwordLength = prompt("Type length of password desired");
   }
@@ -28,6 +34,11 @@ let askPrompt = function () {
   let upper = confirm("click 'OK' for upper character");
   let number = confirm("click 'OK' for number character");
   let special = confirm("click 'OK' for special character");
+  console.log("if prompt is true or false");
+  console.log("lower: " + lower);
+  console.log("upper: " + upper);
+  console.log("number: " + number);
+  console.log("special: " + special);
 
   while (!lower && !upper && !number && !special) {
     alert("Please click 'OK' on at least one prompt!");
@@ -54,7 +65,7 @@ let askPrompt = function () {
     console.log("number");
     selection = selection.concat(numericalcharacters);
   }
-  console.log("selection:" + selection);
+  console.log("selection: " + selection);
 };
 
 /* create password */
